@@ -1,0 +1,357 @@
+■共通問題Aの回答
+
+自分が普段よく使っているOSはArchLinuxとmacOSの2つである。
+
+☆ArchLinuxについて
+
+1. 好きな機能
+・ローリングリリース
+おそらく世のArch使いたちがArchを好む理由TOP1なのではないか。
+（こまめに手入れすれば）システムを最新に保つことができるのは、脆弱性が見つかった際にすぐアップデートができたり、新たな機能をすぐ試せたりするという観点ではよいことである。
+・インストール時に無駄なものが一切入っていない
+高校生の頃はWindowsを使っていたが、自分が普段使わない機能やソフトが購入時から膨大に入っていて、苦労して一つ一つアンインストールをしていた。
+Archはインストール時には必要最低限のものしか入っていない（ネットワークすらつながらない！）。
+必要になったら自分で付け足していくのは無駄がないし、付け足す過程で何が必要なのかを調べることで知識も付くので、大変よいことだと思っている。
+・起動が速い
+システムに無駄なものが入っていないので、そこまでスペックが良くない自分のPCでもブートローダでArchを選んでから10秒以内にログイン画面に移行できる。
+ストレスフリーである。
+・パッケージマネージャが強力
+pacman（自分はAURヘルパーのyayだが）があることによってパッケージの管理が楽である。
+特に便利だなぁと思うのは依存関係から外れたパッケージを探して削除できるコマンドがあることだ。
+わざわざ自分で依存関係をメモしてせっせと削除コマンドを打ち込む…ということをしなくていいのは大変便利である。
+
+2. 改善して欲しい部分
+・ユーザとグループの仕組みが分かりづらい
+一つのシステムを大人数で操作するときは役に立つんだろうなぁとは思うが、個人が使うには少々複雑である。
+新たにユーザを作りたい時（特にOSのインストール直後）、ユーザの設定とグループの設定をそれぞれ確認しなければいけないのが手間である。
+・外部デバイスへの接続が大変
+USBメモリの中身を見るだけでもデバイスの名前を調べてマウントするコマンドを入力する必要がある。
+これはUSBメモリを接続するだけでファイルマネージャで閲覧できるようになっている商用のOSよりも手間である。
+またプリンタの設定は特に分かりづらく、自分はなかなか使いこなせない。
+
+☆macOSについて
+
+1. 好きな機能
+・仮想デスクトップ機能が便利
+macOSは画面が一杯になったときのために、デスクトップを何枚も用意できる仮想デスクトップ環境を提供している。
+全画面表示のアプリが一つのデスクトップに重なることなくいくつも配置できるのは良い機能だと感じる。
+・トラックパッドが圧倒的に使いやすい
+トラックパッドでの操作はあまりにも快適である。感度、精度はPCの中で随一ではないか。
+ただ性能が高いだけでなく、後述するGUIの操作とも高いレベルで融合していると感じる。
+例えば、仮想デスクトップを三本指フリックで切り替えるといった機能は、macOSの特徴を活かした操作である。
+また、三本指で上にフリックするとデスクトップ上で起動しているアプリが一度に確認できるのは素晴らしいと思う。
+・Linuxとの互換性がある程度ある
+特にシェルコマンドがかなり似通っている。普段はLinuxとmacOSをだいたい半分ずつの割合で使用しているので、わざわざコマンドを調べる必要がたまにしかないのは快適である。
+
+2. 改善して欲しい部分
+・GUIの拡張性がない
+LinuxでいうX window systemに基づいた自由なGUIの構築ができないのは残念なポイント。標準のGUIが重くなったときにストレスが溜まる。Linux機に入っているi3wmならこんなことにはならないのに…と思うこともしばしばある。
+・gccコマンドがデフォルトでclangのエイリアスになっている
+GNU gccとclangで生成されるバイナリが若干違うので、処理が少々面倒。macを導入した当初はこの事実を知らなくて、GNU gccのオプションが弾かれたりした。紛らわしい。
+
+■共通問題Bの回答
+
+自分は以前にx86向けのフルスクラッチOSである、いわゆる『はりぼてOS』を作ったことがある。ご存知だろうと思うが、はりぼてOSはx86向けのフルスクラッチOSで、セグメンテーションでメモリを管理し、GUIを備え、APIを用いてデバイスを操作できる、すごく小さいOSである。
+これを作るのには（本を読んで理解してコードを書くだけだが）苦労したし、まだまだ足りない機能もあるのでそれを拡張するのも良いと思う。
+しかし、今度はx86_64向けのUEFI awareなフルスクラッチOSを作ってみたいと思っている。
+なぜx86_64かというと、現在の一般的なPCはほとんどがx86_64アーキテクチャを採用していて、やはり自作OSをするからには実機で動かしたいという思いがあるからである。
+またUEFIを採用する理由は、レガシーBIOSがそろそろ廃止されるので、今後のスタンダードな環境に慣れておきたいというのがある。
+x86_64の自作OSを作る上で避けて通れないのはページングである。ページングを用いたメモリ管理ははりぼてOSでもやったことがないので今後挑戦したい。
+また、はりぼてOSにはrmコマンドやtouchコマンドがなかったので、自由にファイルを作ったり削除できたりする機能を作りたい。そのために簡易的なファイルシステムが必要である。
+そして最もやってみたいのが、ネットワーク通信機能である。自分のOSで世界と繋がりたいのである。pingを飛ばす程度でもいいので通信機能を実装してみたい。
+
+■共通問題C
+
+C1. 双方向リンクリストとそれを操作する関数
+
+以下ソース
+
+--- seckadai.c -------------------------------------------------------------------
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define INIT_DAT        0
+
+struct Cell {
+    struct Cell *front; // 前へのポインタ
+    int data; // 整数値のデータ
+    struct Cell *back; // 後ろへのポインタ
+};
+
+struct Cell *gen_cell(int d)
+{
+    struct Cell *cell = malloc(sizeof(struct Cell));
+    cell->front = NULL;
+    cell->data = d;
+    cell->back = NULL;
+    return cell;
+}
+
+struct Cell *gen_list_loop(int len)
+{
+    // リストの長さが1未満であったらエラー終了
+    if (len < 1) {
+        printf("Bad length\n");
+        exit(1);
+    }
+    int i;
+    struct Cell *list = malloc(sizeof(struct Cell) * len);
+    for (i = 0; i < len; i++) {
+        list[i].front = NULL;
+        list[i].data = INIT_DAT;
+        list[i].back = NULL;
+    }
+    for (i = 0; i < len - 1; i++) {
+        list[i].back = &list[i + 1];
+        list[i + 1].front = &list[i];
+    }
+    return list;
+}
+
+struct Cell *gen_list_rec(int len)
+{
+    // リストの長さが1未満だったらエラー終了
+    if (len < 1) {
+        printf("Bad length\n");
+        exit(1);
+    }
+    struct Cell *cell = gen_cell(INIT_DAT);
+    // 再帰的にリストを作成
+    if (len != 1) {
+        cell->back = gen_list_rec(len - 1);
+        struct Cell *head = cell;
+        struct Cell *next_cell = cell->back;
+        while (next_cell->back != NULL) {
+            cell->back = next_cell;
+            cell = next_cell;
+            next_cell = next_cell->back;
+        }
+        cell->back = next_cell;
+        return head;
+    } else {
+        return cell;
+    }
+}
+
+int get_list_len(struct Cell *list)
+{
+    int len = 1;
+    struct Cell *cell = list;
+    while (cell->back != NULL) {
+        len++;
+        cell = cell->back;
+    }
+    return len;
+}
+
+// リストlistのlocation番目の後ろにデータdatのセルを挿入する
+struct Cell *insert_cell(struct Cell *list, int dat, int location)
+{
+    int len = get_list_len(list);
+    // locationが範囲外ならfalseを返す
+    if (location < 0 || len - 1 < location) {
+        printf("This location is out of range.\n");
+        return list;
+    }
+
+    struct Cell *ins_cell = gen_cell(dat);
+    struct Cell *prev_cell_ptr = list;
+    int i;
+    for (i = 0; i < location; i++) {
+        prev_cell_ptr = prev_cell_ptr->back;
+    }
+    struct Cell *next_cell_ptr = prev_cell_ptr->back;
+    // 挿入するセルとその前のセルをつなぐ
+    prev_cell_ptr->back = ins_cell;
+    ins_cell->front = prev_cell_ptr;
+    // 挿入するセルとその後のセルをつなぐ
+    if (location != len - 1) {
+        next_cell_ptr->front = ins_cell;
+        ins_cell->back = next_cell_ptr;
+    }
+
+    printf("Insert data %3d into %3d.\n", dat, location);
+    return list;
+}
+
+struct Cell *insert_cell_head(struct Cell *list, int dat)
+{
+    struct Cell *new_head = gen_cell(dat);
+    new_head->back = list;
+    list->front = new_head;
+    printf("Insert data %3d into head.\n", dat);
+    return new_head;
+}
+
+void display(struct Cell *list)
+{
+    struct Cell *cell = list;
+    while (cell->back != NULL) {
+        printf("%3d ", cell->data);
+        cell = cell->back;
+    }
+    printf("%3d ", cell->data); // 最後のセルを表示
+    printf("\n");
+    return;
+}
+
+void free_list_rec(struct Cell *list)
+{
+    struct Cell *cell = list, *del_cell;
+    while (cell->back != NULL) {
+        cell = cell->back;
+    }
+    while (cell->front != NULL) {
+        del_cell = cell;
+        cell = cell->front;
+        free(del_cell);
+    }
+    free(cell); // 先頭のセルを削除
+    return;
+}
+
+void free_list_loop(struct Cell *list)
+{
+    free(list);
+    return;
+}
+
+int main(void)
+{
+    clock_t start, end;
+
+    start = clock();
+    struct Cell *list_rec = gen_list_rec(8); // 5つのセルを持つリストを生成
+    list_rec = insert_cell(list_rec, 15, 3); // 3番目の後ろに15を挿入
+    list_rec = insert_cell(list_rec, -1, 0); // 0番目の後ろに-1を挿入
+    list_rec = insert_cell(list_rec,  6, 9);
+    list_rec = insert_cell_head(list_rec, 1); // 先頭に1を挿入
+    display(list_rec);
+    free_list_rec(list_rec);
+    end = clock();
+    printf("rec:  %f[sec]\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+    printf("\n");
+
+    start = clock();
+    struct Cell *list_loop = gen_list_loop(8);
+    list_loop = insert_cell(list_loop, 15, 3);
+    list_loop = insert_cell(list_loop, -1, 0);
+    list_loop = insert_cell(list_loop,  6, 9);
+    list_loop = insert_cell_head(list_loop, 1);
+    display(list_loop);
+    free_list_loop(list_loop);
+    end = clock();
+    printf("loop: %f[sec]\n", (double)(end - start) / CLOCKS_PER_SEC);
+
+    return 0;
+}
+
+----------------------------------------------------------------------------------
+
+C2. 設計・実装で工夫した点
+
+双方向リンクリストを、ループで生成する関数と、再帰で生成する関数の2つを作った。
+mallocで動的にメモリ確保をしているので、最後にfree処理をする関数を作った。
+clock関数を用いて性能測定をした。以下がその結果である。
+
+再帰を用いたリスト生成
+1回目: 0.000326[sec]
+2回目: 0.000350[sec]
+3回目: 0.000362[sec]
+平均値: 0.000346[sec]
+
+ループを用いたリスト生成
+1回目: 0.000075[sec]
+2回目: 0.000090[sec]
+3回目: 0.000073[sec]
+平均値: 0.000079[sec]
+
+再帰のほうがループより遅くなった原因としては以下の理由が考えられる。
+C言語は関数呼び出しの際に、スタック領域に復帰情報を保存する。
+再帰のように何重にも関数を呼び出すと、スタック領域にどんどん情報が積まれていくので、その分ループ処理よりも遅くなる。
+
+■選択問題S1　テーマ「フルスクラッチOSを書こう！」（内田講師）
+
+1. 今現在、自分がPCIバスについて知っていること
+
+PCIバスとは、CPUとその他のデバイスを接続し、情報を受け渡すための導線のようなもの。
+
+2. 知識を深めるために調べてわかったこと
+
+PCIバスとは、多重化されたアドレスとデータラインを持つ32bitもしくは64bitのバスである。
+コントローラや追加のカードや、プロセッサやメモリをつなぐ役割を果たす。
+PCIのコンポーネントはプロセッサとは独立していて、プロセッサが代わっても用いることができる。
+PCIバスには接続に限度があるが、PCIブリッジを使えばPCIバスを新たに接続できる。
+このブリッジによってメモリ空間かI/Oアドレス空間にマップされたデバイスに、CPUは直接アクセスできる。
+I/Oアドレス空間にマップされたデバイスは、OUT命令を用いることでデバイスにデータを送ることができる。
+メモリ空間にマップされたデバイスはMOV命令などでメモリに値を書き込むことでデバイスにデータを送ることができる。
+
+PCIデバイスの一例として、Programmable Interrupt Controller(PIC)がある。
+また、それを拡張させたAdvanced PIC(APIC)がある。
+昔はIRQという形式で物理配線されていたため、使い勝手が悪かったが、現在はMessage Signeled Interrupt(MSI)という方式で割り込みは管理される。
+IRQ方式では、PICやAPICから割りこみ信号が送られてきたら、CPUがメモリ上のInterrupt Descriptor Table(IDT)を参照することによって、割り込みハンドラが呼び出される。
+またIDTのアドレスを知らせるためにIDTレジスタがあり、IDTの開始アドレスを格納する。
+INT命令でIDTを参照することができる。INT nでn番の割り込みハンドラを呼び出す、といった具合である。
+x64アーキテクチャでは、IDTの32番から255番までがユーザが定義した割り込みハンドラを登録できる。
+Linuxでは、/proc/interruptsで各デバイスの割り込み回数などが見ることができる。以下は自分のPCで採取した情報である。
+----------------------------------------------------------------------------------
+            CPU0       CPU1       CPU2       CPU3       
+   0:          9          0          0          0  IR-IO-APIC    2-edge      timer
+   1:      41395          0       4421          0  IR-IO-APIC    1-edge      i8042
+   8:          0          0          0          1  IR-IO-APIC    8-edge      rtc0
+   9:       2144        208          0          0  IR-IO-APIC    9-fasteoi   acpi
+  12:        122        122          0          0  IR-IO-APIC   12-edge      i8042
+  14:          0          0          0          0  IR-IO-APIC   14-fasteoi   INT344B:00
+  16:     238427          0      79472          0  IR-IO-APIC   16-fasteoi   i801_smbus, idma64.0, i2c_designware.0
+  17:          0          0          0          0  IR-IO-APIC   17-fasteoi   idma64.1, i2c_designware.1
+  80:          0          0          0          0  IR-IO-APIC   80-edge      i2c-INT3515-tps6598x.0
+ 120:          0          0          0          0  DMAR-MSI    0-edge      dmar0
+ 121:          0          0          0          0  DMAR-MSI    1-edge      dmar1
+ 122:          0          0          0          0  IR-PCI-MSI 458752-edge      PCIe PME
+ 123:          0          0          0          0  IR-PCI-MSI 462848-edge      PCIe PME, aerdrv
+ 124:          0          0          0          0  IR-PCI-MSI 475136-edge      PCIe PME, aerdrv
+ 125:        348          0          0         21  IR-PCI-MSI 2097152-edge      rtsx_pci
+ 126:     126681          0          0          0  IR-PCI-MSI 327680-edge      xhci_hcd
+ 127:     111811     305304          0          0  IR-PCI-MSI 376832-edge      ahci[0000:00:17.0]
+ 128:          0         38          0          0  IR-PCI-MSI 360448-edge      mei_me
+ 129:          0          0        154          0  IR-PCI-MSI 514048-edge      snd_hda_intel:card0
+ 130:     349963          0          0     114911  IR-PCI-MSI 1048576-edge      iwlwifi
+----------------------------------------------------------------------------------
+
+3. どうやってその情報を調べたか
+
+ドキュメントを読んで理解を深めた。以下が参照したドキュメントである。
+
+・Intel 64 and IA-32 Architectures SDM vol.1, vol.3
+・PCI Local Bus Specification Revision 3.0
+・82093AA I/O ADVANCED PROGRAMMABLE INTERRUPT CONTROLLER(IOAPIC)のマニュアル
+
+またドキュメントでわかりにくい部分は以下のwebサイトを読んで理解を深めた。
+
+・osdev-jpのgithub wiki PCI_MSIの記事
+・0から作るOS開発 割り込みその1, OUT命令
+・ハイパーバイザの作り方 第4回
+・筑波大学 オペレーティングシステム2 第3回, 第5回
+
+■共通問題D 書ききれなかったこと
+
+現在x64自作OSを開始しています。リポジトリは以下のURLです。
+
+https://github.com/Totsugekitai/minOS
+
+現在はUEFI OSローダを作成し終わったところです。これからはページングやIDTを設定して、割り込みでキーボード入力を画面に映すことを目指します。
+ExitBootServicesでUEFI環境を抜けてからフレームバッファに値を書き込むことで、画面に色を塗るところまではできています。
+ローダからカーネルのプログラムのみが書き込まれたバイナリファイルを読み出してメモリに配置し、ローダの最後で指定アドレスにジャンプするといった方法を採用しています。
+
+事前段階として、「30日でできる！OS自作入門」を読みながらはりぼてOSを完成させることで、OSの外観を眺めました。
+以下が自分でやったはりぼてOSのリポジトリです。
+
+https://github.com/Totsugekitai/hariboteOS
+
+春休みで時間があった中ではりぼてOSの作成を行ったのですが、ピッタリ30日で終わらせることができたので、ガッツと継続力はある方だと思います。
+
+もし選ばれたらよろしくおねがいします。
+
